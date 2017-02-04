@@ -1,5 +1,5 @@
 # Alexa-MyQGarage
-Using the Alexa Skills Kit to control your MyQ garage door.
+Using the Alexa Skills Kit to activate your MyQ garage gateway that is connected to one or two doors.
 
 ## Description
 By using the Alexa Skills Kit and AWS Lambda, you can control your MyQ garage door through your Amazon Echo.
