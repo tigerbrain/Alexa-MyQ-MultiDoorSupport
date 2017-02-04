@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "intent": "StateIntent",
+      "slots": [
+        {
+          "name":"doornum",
+          "type":"DOOR_NUMBERS"
+        },      
+        {
+          "name":"doorstate",
+          "type":"DOOR_STATES"
+        }
+      ]
+    },
+    {
+      "intent": "MoveIntent",
+      "slots": [
+        {
+          "name":"doornum",
+          "type":"DOOR_NUMBERS"
+        },      
+        {
+          "name":"doorstate",
+          "type":"DOOR_STATES"
+        }
+      ]
+    },
+    {
+      "intent": "HelpIntent",
+      "slots": []
+    }
+  ]
+}
