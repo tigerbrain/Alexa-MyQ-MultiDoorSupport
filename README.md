@@ -1,8 +1,10 @@
 # Alexa-MyQGarage
-Using the Alexa Skills Kit to activate your MyQ garage gateway that is connected to one or two doors.
+Using the Alexa Skills Kit to allow your Amazon Echo device to activate your Chamberlain or LiftMaster MyQ
+garage gateway that is connected to one or two doors.
 
 ## Description
-By using the Alexa Skills Kit and AWS Lambda, you can control your MyQ garage door through your Amazon Echo.
+By using the Alexa Skills Kit and AWS Lambda, you can control your Chamberlain or LiftMaster MyQ garage
+door through your Amazon Echo.
 This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamberlain Liftmaster API](http://docs.unofficialliftmastermyq.apiary.io/) to a Python-based app you can use inside of AWS Lambda.
 
 ## Instructions
@@ -150,7 +152,12 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
         ----------------------------------------------------------------------------
         Test
         ----------------------------------------------------------------------------
-        On the "Test" section, just make sure that the skill is ENABLED and that's it.
+        On the "Test" section, just make sure that the skill is ENABLED and that's it!
+        You may proceed to the next step and try out the commands directly with Alexa
+        or you may also opt to do a simulation test to verify that you did everything
+        correctly by scrolling down to the "Text" tab of the "Service Simulator"
+        section and typing in command "if door 1 is open" in the "Enter Utterance" text
+        box and clicking on the "Ask <YourFunctionName>" button.
     
 10. Congratulations!  You are now ready to test your skill by giving Alexa the
     command below:
