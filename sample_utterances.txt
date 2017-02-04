@@ -1,0 +1,18 @@
+StateIntent if door {doornum} is {doorstate}
+StateIntent if {doornum} is {doorstate}
+MoveIntent to {doorstate} door {doornum}
+MoveIntent door {doornum} to {doorstate}
+MoveIntent {doornum} to {doorstate}
+MoveIntent door {doornum} to go {doorstate}
+MoveIntent {doornum} to go {doorstate}
+HelpIntent for help
+HelpIntent to help me
+HelpIntent what I can say
+HelpIntent what can I say
+HelpIntent what I can do
+HelpIntent what can I do
+HelpIntent what to say
+HelpIntent for commands
+HelpIntent for sample commands
+HelpIntent for instructions
+HelpIntent for sample instructions
