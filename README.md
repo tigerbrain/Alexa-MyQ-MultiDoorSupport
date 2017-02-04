@@ -155,7 +155,7 @@ use inside of AWS Lambda.
         ----------------------------------------------------------------------------
         On the "Test" section, just make sure that the skill is ENABLED and that's it!
         You may proceed to the next step and try out the commands directly with Alexa
-        or you may also opt to do a simulation test to verify that you did everything
+        or you may opt to do a simulation test to verify that you did everything
         correctly by scrolling down to the "Text" tab of the "Service Simulator"
         section and typing in command "if door 1 is open" in the "Enter Utterance" text
         box and clicking on the "Ask <YourFunctionName>" button.
