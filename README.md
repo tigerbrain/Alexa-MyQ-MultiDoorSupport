@@ -4,7 +4,7 @@ garage gateway that is connected to one or two doors.
 
 ## Description
 By using the Alexa Skills Kit and AWS Lambda, you can control your Chamberlain or LiftMaster MyQ garage
-door through your Amazon Echo.  This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial
+door through your Amazon Echo device.  This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial
 [Chamberlain Liftmaster API](http://docs.unofficialliftmastermyq.apiary.io/) to a Python-based app you can 
 use inside of AWS Lambda.
 
