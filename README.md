@@ -1,10 +1,11 @@
-# Recent Project Updates
+# Recent Updates
 * 05-FEB-2017: Updated lambda-upload.zip file to reflect the latest endpoint discovered on 04-FEB-2017.
 * 03-FEB-2017: Forked jbnunn's repository to release an enhanced and fully working version of a modified code
                that supports activating a second garage door under a single MyQ gateway along with some feature
                enhancements that help simplify installation and introduce an ability to configure Alexa to only
                close garages if so desired for security reasons.
                
+--------------------------------------
 
 # Enable Alexa to Control Your MyQ Garage Opener
 Using the Alexa Skills Kit to allow your Amazon Echo device to activate your Chamberlain or LiftMaster MyQ
