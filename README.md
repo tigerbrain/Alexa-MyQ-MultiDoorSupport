@@ -1,7 +1,8 @@
 # Recent Updates
 * 09-FEB-2017: Updated to support a simpler command set for units connected to a single garage.  Thereby,
                eliminating the need to mention the exact door number if it doesn't apply.
-* 05-FEB-2017: Updated lambda-upload.zip file to reflect the latest endpoint discovered on 04-FEB-2017.
+* 05-FEB-2017: Updated lambda-upload.zip file to fix a bug that caused the code to stop working on 04-FEB-2017
+               due to a change in endpoint targets.
 * 03-FEB-2017: Forked jbnunn's repository to release an enhanced and fully working version of a modified code
                that supports activating a second garage door under a single MyQ gateway along with some feature
                enhancements that help simplify installation and introduce an ability to configure Alexa to only
