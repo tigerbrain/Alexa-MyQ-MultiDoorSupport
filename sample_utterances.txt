@@ -1,9 +1,6 @@
-StateIntent if door {doornum} is {doorstate}
 StateIntent if {doornum} is {doorstate}
-MoveIntent to {doorstate} door {doornum}
-MoveIntent door {doornum} to {doorstate}
+MoveIntent to {doorstate} {doornum}
 MoveIntent {doornum} to {doorstate}
-MoveIntent door {doornum} to go {doorstate}
 MoveIntent {doornum} to go {doorstate}
 HelpIntent for help
 HelpIntent to help me
