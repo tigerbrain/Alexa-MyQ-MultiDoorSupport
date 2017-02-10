@@ -149,22 +149,73 @@
     correctly by scrolling down to the "Text" tab of the "Service Simulator"
     section and typing in command "if door 1 is open" in the "Enter Utterance" text
     box and clicking on the "Ask <YourFunctionName>" button.
+
     
 10. Congratulations!  You are now ready to test your skill by giving Alexa the
     command below:
     
-    Assuming that your skill invocation name is "Garage", you would say
+    Assuming that your skill invocation name is "Garage"
+    
+    
+    --------------------------------------
+    If your MyQ unit is only linked to a 
+    single garage door, you would say
+    --------------------------------------
+    
+    "Alexa, ask GARAGE if DOOR is open"
+    
+    OR
+    
+    "Alexa, ask GARAGE DOOR to close"
+    
 
-    "Alexa, ask GARAGE if door ONE is open"
+    --------------------------------------
+    If your MyQ unit is linked to two 
+    garage doors, you would say
+    --------------------------------------
+
+    "Alexa, ask GARAGE if DOOR ONE is open"
     
     OR
     
-    "Alexa, ask GARAGE if door TWO is closed"
+    "Alexa, ask GARAGE if DOOR TWO is closed"
     
     OR
     
-    "Alexa, ask GARAGE door ONE to close"
+    "Alexa, ask GARAGE DOOR ONE to close"
     
     OR
     
-    "Alexa, ask GARAGE door TWO to open"
+    "Alexa, ask GARAGE DOOR TWO to open"
+    
+
+    --------------------------------------
+    Moreover, for units linked to two 
+    garage doors, you may also drop the 
+    DOOR keyword and just say
+    --------------------------------------
+    
+    "Alexa, ask GARAGE ONE to close"
+    
+    OR
+    
+    "Alexa, ask GARAGE if TWO is open"
+    
+    
+    
+    
+                            
+        
+        
+        
+               
+              
+               
+               
+
+
+
+                        
+                      
+    
+    
