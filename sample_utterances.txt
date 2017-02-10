@@ -12,3 +12,4 @@ HelpIntent what to say
 HelpIntent for commands
 HelpIntent for sample commands
 HelpIntent for instructions
+HelpIntent for sample instructions
