@@ -6,7 +6,7 @@
 * 03-FEB-2017: Forked jbnunn's repository to release an enhanced and fully working version of a modified code
                that supports activating a second garage door under a single MyQ gateway along with some feature
                enhancements that help simplify installation and introduce an ability to configure Alexa to only
-               allow her to close garages and never open if so desired for security reasons.
+               allow her to close garages (but never to open) if so desired for security reasons.
                
 --------------------------------------
 
