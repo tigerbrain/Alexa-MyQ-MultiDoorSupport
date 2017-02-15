@@ -10,7 +10,7 @@
                enhancements that help simplify installation and introduce an ability to configure Alexa to only
                allow her to close garages (but never to open) if so desired for security reasons.
                
-[Full History ...](https://github.com/tigerbrain/Alexa-MyQ-WithMultiDoorSupport/wiki/Project-History)
+  [Full History ...](https://github.com/tigerbrain/Alexa-MyQ-WithMultiDoorSupport/wiki/Project-History)
                
 --------------------------------------
 
