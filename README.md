@@ -1,4 +1,6 @@
 # Recent Updates
+* 15-FEB-2017: Updated to support Chamberlain's updated API based on changes implemented by jbnunn with the 
+               help of arraylabs.
 * 09-FEB-2017: Updated to support a simpler command set for units connected to a single garage.  Thereby,
                eliminating the need to mention the exact door number if it doesn't apply.
 * 05-FEB-2017: Updated lambda-upload.zip file to fix a bug that caused the code to stop working on 04-FEB-2017
