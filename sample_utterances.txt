@@ -1,4 +1,5 @@
 StateIntent if {doornum} is {doorstate}
+StateIntent {doornum} if it's {doorstate}
 MoveIntent to {doorstate} {doornum}
 MoveIntent {doornum} to {doorstate}
 MoveIntent {doornum} to go {doorstate}
