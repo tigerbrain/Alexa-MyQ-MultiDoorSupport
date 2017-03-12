@@ -14,6 +14,15 @@
       ]
     },
     {
+      "intent": "AllStatesIntent",
+      "slots": [
+        {
+          "name":"doorstate",
+          "type":"DOOR_STATES"
+        }
+	  ]
+    },
+    {
       "intent": "MoveIntent",
       "slots": [
         {
@@ -25,6 +34,10 @@
           "type":"DOOR_STATES"
         }
       ]
+    },
+    {
+      "intent": "AllCloseIntent",
+      "slots": []
     },
     {
       "intent": "HelpIntent",

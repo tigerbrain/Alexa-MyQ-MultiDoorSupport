@@ -115,12 +115,13 @@ use inside of AWS Lambda.
            -------------   ---------------------------------------
            username        <Enter your MyQ account username here>
            password        <Enter your MyQ account password here>
-           skill_id        <Paste the Application ID of your Alexa Skill here (The one from step 4)>
+           skill_id           <Paste the Application ID of your Alexa Skill here (The one from step 4)>
            inv_name        <Enter the exact same Invocation Name you used to create the Skill in step 3>
            no_open         <Enter a "Y", if you only want Alexa to close but never open doors for 
                             security reasons>
-                    
-        
+           left                  <Enter 0 or 1. Door 0 is the door first set up with MyQ. If the wrong door
+                                   opens, switch from 0 to 1 or 1 to 0.>
+
         ----------------------------------------------------------------        
         Lambda function handler and role
         ----------------------------------------------------------------

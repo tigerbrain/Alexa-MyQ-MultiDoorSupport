@@ -16,10 +16,18 @@ USERNAME  = os.environ['username']
 PASSWORD  = os.environ['password']
 SKILL_ID  = os.environ['skill_id']
 NO_OPEN   = os.environ['no_open']
+LEFT	  = os.environ['left']
 
 myq_userid                  = ""
 myq_security_token          = ""
 myq_device_id               = []
+
+only_close = (NO_OPEN.upper() == "Y") or (NO_OPEN.upper() == "YES")
+
+open_msg = " open your garage door by saying, ask " + INVONAME + " to open the left or right door."
+close_msg =  " close your garage door by saying, ask " + INVONAME + " to close the left or right door."
+check_msg = " check the state of your garage door by saying, ask " + INVONAME + " if the doors are open."
+check1_msg = " check the state of your garage door by saying, ask " + INVONAME + " if the left or right door is open."
 
 def lambda_handler(event, context):
 
@@ -40,6 +48,17 @@ def lambda_handler(event, context):
     if (SKILL_ID == ""):
         print("skill_id environment variable cannot be blank and needs to be set to your Alexa Skill's Application ID")
         failFunc = "Y"
+
+    global left_door, right_door
+    if (LEFT == "") or (LEFT == "0"):
+        left_door = 0
+        right_door = 1
+    elif (LEFT == "1"):
+        left_door = 1
+        right_door = 0
+    else:
+        print("left environment variable must be blank, 0, or, 1")
+        failFunc = "Y"
         
     if (failFunc == "Y"):
         raise
@@ -53,6 +72,12 @@ def lambda_handler(event, context):
 
         login()
         get_device_id()
+
+        if len(myq_device_id) == 1:
+            global open_msg, close_msg, check_msg, check1_msg
+            open_msg = open_msg.replace(" left or right", "")
+            close_msg = close_msg.replace(" left or right", "")
+            check_msg = check1_msg = check1_msg.replace(" left or right", "")
 
         if event['session']['new']:
             onSessionStarted(event['request']['requestId'], event['session'])
@@ -144,6 +169,8 @@ def change_door_state(device, command):
     )
 
     print("Change Door State: " + str(myq_device_id[device]) + " to " + command)
+    if device_action.status_code != 200:
+        print("Status code: " + str(device_action.status_code))
     
     return device_action.status_code == 200
     
@@ -175,6 +202,7 @@ def get_device_id():
             print("MyQDeviceTypeName:" + str(dev["MyQDeviceTypeName"]))
             print("MyQDeviceId:" + str(dev["MyQDeviceId"]))
             print("Number of Devices:" + str(len(myq_device_id)))
+            # break # enable to test a single device
 
 def check_door_state(device):
 
@@ -204,8 +232,18 @@ def onIntent(intentRequest, session):
     # Dispatch to your skill's intent handlers
     if intentName == "StateIntent":
         return stateResponse(intent)
+    elif intentName == "AllStatesIntent":
+        if len(myq_device_id) == 1:
+            return allState1Response(intent)
+        else:
+            return allStatesResponse(intent)
     elif intentName == "MoveIntent":
         return moveIntent(intent)
+    elif intentName == "AllCloseIntent":
+        if len(myq_device_id) == 1:
+            return allClose1Intent(intent)
+        else:
+            return allCloseIntent(intent)
     elif intentName == "HelpIntent":
         return getWelcomeResponse()
     else:
@@ -218,18 +256,45 @@ def onSessionEnded(sessionEndedRequest, session):
     # Add cleanup logic here
     print "Session ended"
 
+def getDevice(doornum):
+    if (doornum == "door") or \
+       (doornum == "the door") or \
+       (doornum == "door 1") or \
+       (doornum == "1"):
+
+        return 0
+
+    elif (doornum == "door 2") or \
+         (doornum == "door to") or \
+         (doornum == "2") or \
+         (doornum == "to"):
+
+        return 1
+
+    elif ("left" in doornum):
+
+        return left_door
+
+    elif ("right" in doornum):
+
+        return right_door
+
+    else:
+        return -1
+
+
 def getWelcomeResponse():
     cardTitle = "Welcome"
     
-    if (NO_OPEN.upper() == "Y") or (NO_OPEN.upper() == "YES"):
-        speechOutput = "You can close your garage door by saying, ask " + INVONAME + " door one to close.  You can also check the state of your garage door by saying, ask " + INVONAME + " if door one is open"
+    if only_close:
+        speechOutput = "You can" + close_msg + " You can also" + check_msg
 
         # If the user either does not reply to the welcome message or says something that is not
         # understood, they will be prompted again with this text.
-        repromptText = "Ask me to close your garage door by saying, ask " + INVONAME + " door one to close, or ask me to check the state of your garage door by saying, ask " + INVONAME + " if door one is open"   
+        repromptText = "Ask me to" + close_msg + " Or, ask me to " + check_msg
     else:
-        speechOutput = "You can open your garage door by saying, ask " + INVONAME + " door one to open, or you can close your garage door by saying, ask " + INVONAME + " door one to close.  You can also check the state of your garage door by saying, ask " + INVONAME + " if door one is open"
-        repromptText = "Ask me to open your garage door by saying, ask " + INVONAME + " door one to open, or ask me to close your garage door by saying, ask " + INVONAME + " door one to close.  You can also ask me to check the state of your garage door by saying, ask " + INVONAME + " if door one is open"
+        speechOutput = "You can" + open_msg + " You can" + close_msg + " You can also" + check_msg
+        repromptText = "Ask me to" + open_msg + " Ask me to" + close_msg + " You can also ask me to" + check_msg
         
     shouldEndSession = True
 
@@ -251,61 +316,45 @@ def moveIntent(intent):
     #       }
     #     }
     
-    if (NO_OPEN.upper() == "Y") or \
-       (NO_OPEN.upper() == "YES"):
-       
-        failureMsg  = "I didn't understand that. You can close your garage door by saying, ask " + INVONAME + " door one to close"
-        repromptMsg = "Ask me to close your garage door by saying, ask " + INVONAME + " door one to close"
+    if only_close:       
+        failureMsg  = "I didn't understand that. You can" + close_msg
+        repromptMsg = "Ask me to" + close_msg
         
     else:
-        failureMsg  = "I didn't understand that. You can open your garage door by saying, ask " + INVONAME + " door one to open, or you can close your garage door by saying, ask " + INVONAME + " door one to close"
-        repromptMsg = "Ask me to open your garage door by saying, ask " + INVONAME + " door one to open, or ask me to close your garage door by saying, ask " + INVONAME + " door one to close"
+        failureMsg  = "I didn't understand that. You can" + open_msg + " Or, you can" + close_msg
+        repromptMsg = "Ask me to" + open_msg + " Or, ask me to" + close_msg
     
     try:  
         doornum = intent['slots']['doornum']['value']
-        
-        if (doornum == "door") or \
-           (doornum == "door 1") or \
-           (doornum == "1"):
-           
-            device = 0
+        device = getDevice(doornum)
             
-        elif (doornum == "door 2") or \
-             (doornum == "door to") or \
-             (doornum == "2") or \
-             (doornum == "to"):
-             
-            device = 1
-            
-        else:
+        if device == -1:
             speechOutput = failureMsg
             cardTitle = "Try again" 
             repromptText = repromptMsg
             shouldEndSession = False
-            return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))        
+            return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)) 
                 
         if (intent['slots']['doorstate']['value'] == "close") or \
            (intent['slots']['doorstate']['value'] == "shut") or \
            (intent['slots']['doorstate']['value'] == "down"):
            
             close(device)
-            print("Closing...")
-            speechOutput = "Ok, closing garage " + doornum + " now"
+            print("Closing " + str(device) + "...")
+            speechOutput = "Ok, closing " + doornum + " now"
             cardTitle = "Closing your garage door"
             
         elif (intent['slots']['doorstate']['value'] == "open") or \
              (intent['slots']['doorstate']['value'] == "up"):
              
-            if (NO_OPEN.upper() == "Y") or \
-               (NO_OPEN.upper() == "YES"):
-               
+            if only_close:               
                 speechOutput = failureMsg
                 cardTitle = "Try again"
                 
             else:
                 open(device)
-                print("Opening...")
-                speechOutput = "Ok, opening garage " + doornum + " now"
+                print("Opening " + str(device) + "...")
+                speechOutput = "Ok, opening " + doornum + " now"
                 cardTitle = speechOutput
         else:
             speechOutput = failureMsg
@@ -321,8 +370,59 @@ def moveIntent(intent):
         cardTitle = "Try again" 
         repromptText = repromptMsg
         shouldEndSession = False
-        return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))        
-    
+        return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)) 
+
+
+def allCloseIntent(intent):
+    # Close all doors
+
+    doorstate_left = status(left_door) 
+    doorstate_right = status(right_door) 
+
+    speechOutput = "Both doors are closed"
+    cardTitle = speechOutput
+
+    if doorstate_left != "closed" and doorstate_left != "closing":
+        close(left_door)
+        print("Closing left...")
+        cardTitle = "Closing your garage door"
+    if doorstate_right != "closed" and doorstate_right != "closing":
+        close(right_door)
+        print("Closing right...")
+        cardTitle = "Closing your garage door"
+
+    if doorstate_left != "closed" and doorstate_right != "closed":
+        speechOutput = "Ok, closing both garage doors now"
+    elif doorstate_left != "closed":
+        speechOutput = "Ok, closing the left garage door now"
+    elif doorstate_right != "closed":
+        speechOutput = "Ok, closing the right garage door now"
+
+    repromptText = "Ask me to" + close_msg + " Or, ask me to" + check_msg
+    shouldEndSession = True
+
+    return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
+
+def allClose1Intent(intent):
+    # Close all doors where there's just 1
+
+    doorstate = status(0) 
+
+    speechOutput = "The door is closed"
+    cardTitle = speechOutput
+
+    if doorstate != "closed" and doorstate != "closing":
+        close(0)
+        print("Closing...")
+        cardTitle = "Closing your garage door"
+        speechOutput = "Ok, closing the garage door now"
+
+    repromptText = "Ask me to" + close_msg + " Or, ask me to" + check_msg
+    shouldEndSession = True
+
+    return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
 
 def stateResponse(intent):
     # Ask garage if {door|door 1|door 2} is {open|up|close|closed|shut|down}
@@ -340,26 +440,14 @@ def stateResponse(intent):
     #       }
     #     }
     
-    failureMsg  = "I didn't understand that. You can check the state of your garage door by saying ask " + INVONAME + " if door one is open"
-    repromptMsg = "Ask me to check the state of your garage door by saying, ask " + INVONAME + " if door one is open"
+    failureMsg  = "I didn't understand that. You can" + check1_msg
+    repromptMsg = "Ask me to" + check1_msg
     
     try:
         doornum = intent['slots']['doornum']['value']
-        
-        if (doornum == "door") or \
-           (doornum == "door 1") or \
-           (doornum == "1"):
-           
-            device = 0
+        device = getDevice(doornum)
             
-        elif (doornum == "door 2") or \
-             (doornum == "door to") or \
-             (doornum == "2") or \
-             (doornum == "to"):
-             
-            device = 1
-            
-        else:
+        if device == -1:
             speechOutput = failureMsg
             cardTitle = "Try again"
             repromptText = repromptMsg
@@ -372,14 +460,12 @@ def stateResponse(intent):
            (intent['slots']['doorstate']['value'] == "up"):
            
             if doorstate == "open":
-                speechOutput = "Yes, garage " + doornum + " is open"
-                cardTitle = speechOutput
+                speechOutput = "Yes, " + doornum + " is open"
             elif doorstate == "closed":
-                speechOutput = "No, garage " + doornum + " is closed"
-                cardTitle = speechOutput
+                speechOutput = "No, " + doornum + " is closed"
             else:
-                speechOutput = "Garage " + doornum + " is " + doorstate
-                cardTitle = speechOutput
+                speechOutput = doornum + " is " + doorstate
+            cardTitle = speechOutput
 
         elif (intent['slots']['doorstate']['value'] == "close") or \
              (intent['slots']['doorstate']['value'] == "closed") or \
@@ -387,14 +473,12 @@ def stateResponse(intent):
              (intent['slots']['doorstate']['value'] == "down"):
              
             if doorstate == "closed":
-                speechOutput = "Yes, garage " + doornum + " is closed"
-                cardTitle = speechOutput
+                speechOutput = "Yes, " + doornum + " is closed"
             elif doorstate == "open":
-                speechOutput = "No, garage " + doornum + " is open"
-                cardTitle = speechOutput
+                speechOutput = "No, " + doornum + " is open"
             else:
-                speechOutput = "Garage " + doornum + " is " + doorstate
-                cardTitle = speechOutput
+                speechOutput = doornum + " is " + doorstate
+            cardTitle = speechOutput
 
         else:
             speechOutput = failureMsg
@@ -411,6 +495,39 @@ def stateResponse(intent):
         repromptText = repromptMsg
         shouldEndSession = False
         return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
+
+def allStatesResponse(intent):
+    # Ask garage what's up
+            
+    doorstate_left = status(left_door) 
+    doorstate_right = status(right_door) 
+
+    if doorstate_left == doorstate_right:
+        speechOutput = "Both doors are " + doorstate_left
+    else:
+        speechOutput = "The left door is " + doorstate_left + \
+          ", and the right door is " + doorstate_right
+    cardTitle = speechOutput
+
+    repromptText = "Ask me to" + check_msg
+    shouldEndSession = True
+
+    return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
+
+
+def allState1Response(intent):
+    # Ask garage what's up when there's one door
+            
+    doorstate = status(0) 
+
+    speechOutput = "The door is " + doorstate
+    cardTitle = speechOutput
+
+    repromptText = "Ask me to" + check_msg
+    shouldEndSession = True
+
+    return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
 
 
 # --------------- Helpers that build all of the responses -----------------------

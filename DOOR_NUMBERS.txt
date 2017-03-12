@@ -1,7 +1,14 @@
 door
+the door
 door 1
 door 2
 door to
 1
 2
 to
+left
+left door
+the left door
+right
+right door
+the right door

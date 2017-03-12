@@ -1,8 +1,14 @@
 StateIntent if {doornum} is {doorstate}
 StateIntent {doornum} if it's {doorstate}
+AllStatesIntent what's up
+AllStatesIntent if the doors are {doorstate}
 MoveIntent to {doorstate} {doornum}
 MoveIntent {doornum} to {doorstate}
 MoveIntent {doornum} to go {doorstate}
+AllCloseIntent to close the doors
+AllCloseIntent to close the garage doors
+AllCloseIntent to close both doors
+AllCloseIntent to close both garage doors
 HelpIntent for help
 HelpIntent to help me
 HelpIntent what I can say
