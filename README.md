@@ -72,7 +72,7 @@ use inside of AWS Lambda.
         the ARN information that you need.  For now, proceed to step 4
     
 4.  Click on the "Skill Information" navigation link on the left side to navigate back to
-    the "Skill Information" section of the skill you are trying to create and copy the
+    the "Skill Information" section of the skill you are trying to create, then copy the
     "Application ID" of the skill onto a notepad as you will be needing it in step 8c.
     
         Sample Application ID:  amzn1.ask.skill.2dc3256e-f143-41a6-ab8f-194c3df2d789
@@ -80,7 +80,7 @@ use inside of AWS Lambda.
     
 5.  Create a free/Basic Amazon webservice (AWS) account via url "aws.amazon.com"
 6.  On the upper right corner of the AWS main page, just beside your AWS account name,
-    shows a location that you need click on and select "US East (N. Virginia)"
+    shows a location that you may need to click and select "US East (N. Virginia)"
 7.  Still on the AWS main page, search for AWS Services called "lambda"
 8.  Click the "Create a Lambda Function" button and follow the steps below:
 
@@ -90,7 +90,7 @@ use inside of AWS Lambda.
         "Alexa Skills Kit", then click the "Next" button
         
         NOTE:  If "Alexa Skills Kit" is not available, it is because your location
-               is not set correctly (Please refer back to step 5 for more info)
+               is not set correctly (Please refer back to step 6 for more info)
                
     c.  On the "Configure function" page, enter the following information:
     
@@ -147,7 +147,7 @@ use inside of AWS Lambda.
         Example:  arn:aws:lambda:us-east-1:563954059256:function:OperateGarage
         
 9.  Return to your Amazon developer account >> Alexa >> Alexa Skills Kit project and
-    edit the custom skill that you have already started creating back in step 5 and
+    edit the custom skill that you have already started creating back in step 3 and
     navigate to the "Configuration" section of the skill and enter the information
     below:
     
