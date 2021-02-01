@@ -1,4 +1,6 @@
 # Recent Updates
+* 31-JAN-2021: Updated README to redirect users to RJCOHN(https://github.com/rjcohn/alexa-pymyq) site who is
+               now hosting the latest code that I have personally tested to work.
 * 15-FEB-2017: Updated to support Chamberlain's updated API based on changes implemented by jbnunn with the 
                help of arraylabs.
 * 09-FEB-2017: Updated to support a simpler command set for units connected to a single garage.  Thereby,
@@ -13,6 +15,9 @@
   [Full History ...](https://github.com/tigerbrain/Alexa-MyQ-WithMultiDoorSupport/wiki/Project-History)
                
 --------------------------------------
+# IMPORTANT
+The instructions below will no longer work, but RJCOHN(https://github.com/rjcohn/alexa-pymyq) was able to get
+this working, so visit his site for the latest instructions.
 
 # Enable Alexa to Control Your MyQ Garage Opener
 Use Alexa to activate your Chamberlain/LiftMaster MyQ garage gateway that is connected to one or two doors.
