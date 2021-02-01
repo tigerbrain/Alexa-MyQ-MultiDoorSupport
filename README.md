@@ -1,5 +1,5 @@
 # Recent Updates
-* 31-JAN-2021: Updated README to redirect users to RJCOHN's site (https://github.com/rjcohn/alexa-pymyq) who is
+* 31-JAN-2021: Updated README to redirect users to [RJCOHN's site](https://github.com/rjcohn/alexa-pymyq) who is
                now hosting the latest code that I have personally tested to work.
 * 15-FEB-2017: Updated to support Chamberlain's updated API based on changes implemented by jbnunn with the 
                help of arraylabs.
