@@ -16,8 +16,8 @@
                
 --------------------------------------
 # IMPORTANT
-The instructions below will no longer work, but RJCOHN (https://github.com/rjcohn/alexa-pymyq) was able to get
-this working, so visit his site for the latest instructions.
+The instructions below NO LONGER WORK, but RJCOHN (https://github.com/rjcohn/alexa-pymyq) was able to get this
+working, so visit his site for the latest instructions.
 
 # Enable Alexa to Control Your MyQ Garage Opener
 Use Alexa to activate your Chamberlain/LiftMaster MyQ garage gateway that is connected to one or two doors.
